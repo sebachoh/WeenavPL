@@ -4,7 +4,7 @@
   "description": "C'est le projet pour l'entretien le 06 fevrier 2026 Créé par : Sebastian Ruiz Zuluaga Version : 1.0.0",
   "main": "app.js",
   "scripts": {
-    "dev": "node app.js --watch"
+    "dev": "node --watch backend/src/app.js"
   },
   "repository": {
     "type": "git",
