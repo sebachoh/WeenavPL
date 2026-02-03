@@ -9,7 +9,10 @@ import {
     getBoatById,
     createBoat,
     updateBoat,
-    deleteBoat
+    deleteBoat,
+    getTelemetry,
+    getTelemetryByBoat,
+    postTelemetry
 } from "../controllers/users.controllers.js";
 
 const router = Router();
@@ -37,16 +40,12 @@ router.post("/boats", createBoat);
 router.put("/boats/:id", updateBoat);
 router.delete("/boats/:id", deleteBoat);
 
-// // Telemetry
-// router.get("/telemetry", (req, res) => {
-//     res.send("Hello World!");
-// });
+// Telemetry
+router.get("/telemetry/:id", getTelemetryByBoat);
+router.post("/telemetry", postTelemetry);
 
-// router.post("/telemetry", (req, res) => {
-//     res.send("Hello World!");
-// });
 
-// // Alerts
+// Alerts
 // router.get("/alerts", (req, res) => {
 //     res.send("Hello World!");
 // });

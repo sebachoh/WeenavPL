@@ -107,3 +107,42 @@ export const deleteBoat = async (req, res) => {
 
 // Telemetry Controllers
 
+export const getTelemetryByBoat = async (req, res) => {
+    const { boatId } = req.params;
+
+    try {
+        const { rows } = await pool.query(
+            "SELECT * FROM telemetry WHERE boat_id = $1 ORDER BY timestamp ASC",
+            [boatId]
+        );
+
+        if (rows.length === 0) {
+            return res.status(404).json({ message: "il n'y a pas de données pour ce bateau" });
+        }
+        return res.json(rows);
+    } catch (error) {
+        return res.status(500).json({ message: "Erreur lors de la consultation de la telemetrie" });
+    }
+};
+
+export const postTelemetry = async (req, res) => {
+    try {
+        const { boat_id, voltage, current, soc, temperature, speed } = req.body;
+        const power_kw = req.body.power_kw || (voltage * current) / 1000;
+
+        const queryText = "INSERT INTO telemetry (boat_id, voltage, current, power_kw, soc, temperature, speed) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *";
+        const values = [boat_id, voltage, current, power_kw, soc, temperature, speed];
+
+        const { rows } = await pool.query(queryText, values);
+        return res.status(201).json(rows[0]);
+    } catch (error) {
+        console.log(error);
+        if (error.code === "23505") {
+            return res.status(400).json({ message: "La telemetrie existe deja" });
+        }
+        return res.status(500).json({ message: "Erreur lors de la creation de la telemetrie" });
+    }
+}
+
+// Alerts Controllers
+// c'est encore en train de se faire :)
