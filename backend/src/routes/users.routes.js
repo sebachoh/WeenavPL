@@ -1,58 +1,29 @@
 import { Router } from "express";
-import { pool } from "../db.js";
+import {
+    getUsers,
+    getUserById,
+    createUser,
+    updateUser,
+    deleteUser
+} from "../controllers/users.controllers.js";
 
 const router = Router();
 
 // router.get("/auth", (req, res) => {
 //     res.send("Hello World!");
-// });
+// }); partie authentification 
 
-// Users
-router.get("/users", async (req, res) => {
-    const { rows } = await pool.query("SELECT * FROM users");
-    res.json(rows);
-});
+// Users Routes
 
-router.get("/users/me", (req, res) => {
-    res.send("Utilisateur actuel");
-});
+// router.get("/users/me", (req, res) => {
+//     res.send("Utilisateur actuel");
+// }); il faut etre authentifié et ce partie est en cours de developpement hehehehe :) //
 
-router.get("/users/:id", async (req, res) => {
-    const { id } = req.params;
-    const { rows } = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
-
-    if (rows.length === 0) {
-        return res.status(404).json({ message: "Utilisateur non trouvé" });
-    }
-    res.json(rows);
-});
-
-router.post("/users", async (req, res) => {
-    const data = req.body;
-    const { rows } = await pool.query("INSERT INTO users (name, email, password_hash) VALUES ($1, $2, $3) RETURNING *", [data.name, data.email, data.password_hash]);
-
-    return res.json(rows[0]);
-});
-
-router.put("/users/:id", async (req, res) => {
-    const { id } = req.params;
-    const { rows } = await pool.query("UPDATE users SET name = $2, password_hash = $3 WHERE id = $1 RETURNING *", [id, req.body.name, req.body.password_hash]);
-
-    if (rows.length === 0) {
-        return res.status(404).json({ message: "Utilisateur non trouvé" });
-    }
-    return res.json(rows);
-});
-
-router.delete("/users/:id", async (req, res) => {
-    const { id } = req.params;
-    const { rowCount } = await pool.query("DELETE FROM users WHERE id = $1 RETURNING *", [id]);
-
-    if (rowCount === 0) {
-        return res.status(404).json({ message: "Utilisateur non trouvé" });
-    }
-    return res.status(204).json({ message: "Utilisateur supprimé" });
-});
+router.get("/users", getUsers);
+router.get("/users/:id", getUserById);
+router.post("/users", createUser);
+router.put("/users/:id", updateUser);
+router.delete("/users/:id", deleteUser);
 
 // // Boats
 // router.get("/boats", (req, res) => {
