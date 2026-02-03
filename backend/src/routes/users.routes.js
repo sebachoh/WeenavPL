@@ -10,7 +10,6 @@ import {
     createBoat,
     updateBoat,
     deleteBoat,
-    getTelemetry,
     getTelemetryByBoat,
     postTelemetry
 } from "../controllers/users.controllers.js";
@@ -41,7 +40,7 @@ router.put("/boats/:id", updateBoat);
 router.delete("/boats/:id", deleteBoat);
 
 // Telemetry
-router.get("/telemetry/:id", getTelemetryByBoat);
+router.get("/telemetry/:boatId", getTelemetryByBoat);
 router.post("/telemetry", postTelemetry);
 
 
