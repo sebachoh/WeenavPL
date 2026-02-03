@@ -1,5 +1,7 @@
 import { pool } from "../db.js";
 
+// Users Controllers
+
 export const getUsers = async (req, res) => {
     const { rows } = await pool.query("SELECT * FROM users");
     return res.json(rows);
@@ -49,3 +51,5 @@ export const deleteUser = async (req, res) => {
     }
     return res.status(204).json({ message: "Utilisateur supprimé" });
 }
+
+// Boats Controllers
