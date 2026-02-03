@@ -25,13 +25,13 @@ Platform de visualisation des données de bateaux.</br>
 
 - Users:
 
-GET {
-    /users
-    /users/:id
+GET {</br>
+    /users</br>
+    /users/:id</br>
 }
 
-POST {
-    /users
+POST {</br>
+    /users</br>
     {
         "name": "John Doe",</br>
         "email": "[EMAIL_ADDRESS]",</br>
@@ -39,8 +39,8 @@ POST {
     }
 }
 
-PUT {
-    /users/:id
+PUT {</br>
+    /users/:id</br>
     {
         "name": "John Doe",</br>
         "email": "[EMAIL_ADDRESS]",</br>
@@ -48,7 +48,7 @@ PUT {
     }
 }
 
-DELETE {
-    /users/:id
+DELETE {</br>
+    /users/:id</br>
 }
 
