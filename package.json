@@ -1,0 +1,26 @@
+{
+  "name": "weenavpl",
+  "version": "1.0.0",
+  "description": "C'est le projet pour l'entretien le 06 fevrier 2026 Créé par : Sebastian Ruiz Zuluaga Version : 1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "dev": "node app.js --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebachoh/WeenavPL.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/sebachoh/WeenavPL/issues"
+  },
+  "homepage": "https://github.com/sebachoh/WeenavPL#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "morgan": "^1.10.1",
+    "pg": "^8.18.0"
+  }
+}
