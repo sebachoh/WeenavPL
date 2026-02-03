@@ -4,7 +4,12 @@ import {
     getUserById,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getBoats,
+    getBoatById,
+    createBoat,
+    updateBoat,
+    deleteBoat
 } from "../controllers/users.controllers.js";
 
 const router = Router();
@@ -25,14 +30,12 @@ router.post("/users", createUser);
 router.put("/users/:id", updateUser);
 router.delete("/users/:id", deleteUser);
 
-// // Boats
-// router.get("/boats", (req, res) => {
-//     res.send("Hello World!");
-// });
-
-// router.get("/boats/:id", (req, res) => {
-//     res.send("Hello World!");
-// });
+// Boats
+router.get("/boats", getBoats);
+router.get("/boats/:id", getBoatById);
+router.post("/boats", createBoat);
+router.put("/boats/:id", updateBoat);
+router.delete("/boats/:id", deleteBoat);
 
 // // Telemetry
 // router.get("/telemetry", (req, res) => {
