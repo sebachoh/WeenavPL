@@ -1,4 +1,4 @@
-export default function BoatList() {
+export default function BoatDashboard() {
     return (
         <div className="flex-1 h-[calc(100vh-2rem)] m-4 bg-white flex flex-col items-center justify-center p-6 rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-100 gap-4">
             <div className="w-full h-32 bg-slate-100 rounded-2xl flex">
