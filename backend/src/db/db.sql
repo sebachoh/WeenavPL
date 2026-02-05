@@ -35,3 +35,5 @@ CREATE TABLE telemetry (
         REFERENCES boats(id)
         ON DELETE CASCADE
 );
+
+ALTER TABLE boats ADD COLUMN year INTEGER;
