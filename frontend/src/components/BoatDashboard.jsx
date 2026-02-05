@@ -5,28 +5,46 @@ export default function BoatDashboard({ boat, setActiveView }) {
 
     const [telemetry, setTelemetry] = useState([]);
     const [, setLoading] = useState(true);
-    useEffect(() => {
-        const fetchTelemetry = async () => {
-            try {
-                const response = await fetch(`http://localhost:3000/telemetry/${boat.id}`);
-                const data = await response.json();
+    const [owner, setOwner] = useState(null);
 
-                if (Array.isArray(data) && data.length > 0) {
-                    setTelemetry(data[data.length - 1]);
-                } else {
-                    setTelemetry(data);
+    useEffect(() => {
+        let isMounted = true; // Para evitar fugas de memoria
+
+        const fetchAllData = async () => {
+            if (!boat?.id || !boat?.user_id) return;
+
+            try {
+                setLoading(true);
+
+                // 1. Fetch Telemetría
+                const resTele = await fetch(`http://localhost:3000/telemetry/${boat.id}`);
+                const dataTele = await resTele.json();
+
+                // 2. Fetch Usuario
+                const resUser = await fetch(`http://localhost:3000/users/${boat.user_id}`);
+                const dataUser = await resUser.json();
+
+                if (isMounted) {
+                    // Guardamos telemetría (último registro)
+                    setTelemetry(Array.isArray(dataTele) ? dataTele[dataTele.length - 1] : dataTele);
+
+                    // Guardamos usuario (asegurándonos de que sea el objeto)
+                    const userData = Array.isArray(dataUser) ? dataUser[0] : dataUser;
+                    setOwner(userData);
+
+                    setLoading(false);
+                    console.log("Cliente cargado:", userData); // Mira esto en la consola F12
                 }
-                setLoading(false);
             } catch (error) {
-                console.error("Error fetching telemetry:", error);
-                setLoading(false);
+                console.error("Error en Dashboard:", error);
+                if (isMounted) setLoading(false);
             }
         };
 
-        if (boat?.id) {
-            fetchTelemetry();
-        }
-    }, [boat.id]);
+        fetchAllData();
+
+        return () => { isMounted = false; };
+    }, [boat.id, boat.user_id]);
 
     return (
         <div className="flex-1 h-[calc(100vh-2rem)] m-4 bg-white flex flex-col items-center justify-center p-6 rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-100 gap-4">
@@ -71,25 +89,25 @@ export default function BoatDashboard({ boat, setActiveView }) {
                                 {/* Fila: Nombre */}
                                 <tr className="border-b border-slate-300">
                                     <td className="py-2 px-6 text-xm font-semibold text-black w-1/3 text-center tracking-[-0.02em]">Nom:</td>
-                                    <td className="py-2 px-2 text-xm text-black tracking-[-0.02em]">Sebastian Ruiz</td>
+                                    <td className="py-2 px-2 text-xm text-black tracking-[-0.02em]">{owner?.name || "Pas trouvé"}</td>
                                 </tr>
 
                                 {/* Fila: Email */}
                                 <tr className="border-b border-slate-300">
                                     <td className="py-2 px-6 text-xm font-semibold text-black text-center tracking-[-0.02em]">Courriel:</td>
-                                    <td className="py-2 px-2 text-xm text-black text-left break-all tracking-[-0.02em]">sebastian.ruiz@weenav.com</td>
+                                    <td className="py-2 px-2 text-xm text-black text-left break-all tracking-[-0.02em]">{owner?.email || "Pas trouvé"}</td>
                                 </tr>
 
                                 {/* Fila: Address */}
                                 <tr className="border-b border-slate-300">
                                     <td className="py-2 px-6 text-xm font-semibold text-black text-center tracking-[-0.02em]">Address:</td>
-                                    <td className="py-2 px-2 text-xm text-black text-left break-words tracking-[-0.02em]">4 Avenue de l’Europe, 59223 RONCQ - FRANCE</td>
+                                    <td className="py-2 px-2 text-xm text-black text-left break-words tracking-[-0.02em]">{owner?.address || "Pas trouvé"}</td>
                                 </tr>
 
                                 {/* Fila: Portable */}
                                 <tr className="border-b border-slate-300">
                                     <td className="py-2 px-6 text-xm font-semibold text-black text-center tracking-[-0.02em]">Portable:</td>
-                                    <td className="py-2 px-2 text-xm text-black text-left tracking-[-0.02em]">+33 7 53 01 28 86</td>
+                                    <td className="py-2 px-2 text-xm text-black text-left tracking-[-0.02em]">{owner?.phone || "Pas trouvé"}</td>
                                 </tr>
 
                                 {/* Fila: Combien de bateaux */}
@@ -97,7 +115,8 @@ export default function BoatDashboard({ boat, setActiveView }) {
                                     <td className="py-2 px-6 text-xm font-semibold text-black text-center tracking-[-0.02em]">#Bateaux:</td>
                                     <td className="py-2 px-2 text-left tracking-[-0.02em]">
                                         <span className="bg-gray-200 text-black px-3 py-1 rounded-full text-sm font-bold">
-                                            3
+                                            {owner?.boats_count || "En développement ;)"}
+
                                         </span>
                                     </td>
                                 </tr>
