@@ -16,24 +16,19 @@ export default function BoatDashboard({ boat, setActiveView }) {
             try {
                 setLoading(true);
 
-                // 1. Fetch Telemetría
                 const resTele = await fetch(`http://localhost:3000/telemetry/${boat.id}`);
                 const dataTele = await resTele.json();
 
-                // 2. Fetch Usuario
                 const resUser = await fetch(`http://localhost:3000/users/${boat.user_id}`);
                 const dataUser = await resUser.json();
 
                 if (isMounted) {
-                    // Guardamos telemetría (último registro)
                     setTelemetry(Array.isArray(dataTele) ? dataTele[dataTele.length - 1] : dataTele);
 
-                    // Guardamos usuario (asegurándonos de que sea el objeto)
                     const userData = Array.isArray(dataUser) ? dataUser[0] : dataUser;
                     setOwner(userData);
 
                     setLoading(false);
-                    console.log("Cliente cargado:", userData); // Mira esto en la consola F12
                 }
             } catch (error) {
                 console.error("Error en Dashboard:", error);

@@ -24,7 +24,7 @@ function App() {
       case "boatDashboard":
         return <BoatDashboard setActiveView={setActiveView} boat={selectedBoat} />;
       case "monitoring":
-        return <Monitoring setActiveView={setActiveView} />;
+        return <Monitoring setActiveView={setActiveView} boat={selectedBoat} />;
       default:
         return <InitialScreen />;
     }

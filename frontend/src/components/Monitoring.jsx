@@ -1,6 +1,45 @@
 import BoatChart from './graphTest.jsx';
+import { useEffect, useState } from 'react';
 
-export default function BoatDashboard({ setActiveView }) {
+
+export default function Monitoring({ boat, setActiveView }) {
+
+    const [, setTelemetry] = useState([]);
+    const [, setLoading] = useState(true);
+
+    useEffect(() => {
+        let isMounted = true;
+
+        const fetchTelemetry = async () => {
+            if (!boat?.id) return;
+
+            try {
+                setLoading(true);
+
+                const resTele = await fetch(`http://localhost:3000/telemetry/${boat.id}`);
+                const dataTele = await resTele.json();
+
+                if (isMounted) {
+                    const latest = Array.isArray(dataTele) ? dataTele[dataTele.length - 1] : dataTele;
+                    setTelemetry(latest);
+                    setLoading(false);
+                }
+            } catch (error) {
+                console.error("Error en Monitoring:", error);
+                if (isMounted) setLoading(false);
+            }
+        };
+
+        fetchTelemetry();
+
+        const interval = setInterval(fetchTelemetry, 5000);
+        return () => {
+            isMounted = false;
+            clearInterval(interval);
+        };
+    }, [boat?.id]);
+
+
     return (
         <div className="flex-1 h-[calc(100vh-2rem)] m-4 bg-white flex flex-col items-center justify-center p-6 rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-100 gap-4">
             <div className="w-full h-24 bg-slate-100 rounded-2xl flex">
@@ -12,8 +51,8 @@ export default function BoatDashboard({ setActiveView }) {
                     />
                 </div>
                 <div className="flex flex-col items-center justify-center">
-                    <h1 className="text-3xl font-bold text-slate-800 tracking-[-0.04em]">Black Pearl</h1>
-                    <p className="text-slate-500 text-sm tracking-[-0.04em]">Kronos | 1992</p>
+                    <h1 className="text-3xl font-bold text-slate-800 tracking-[-0.04em]">{boat?.name || 'Nom pas trouvé'}</h1>
+                    <p className="text-slate-500 text-sm tracking-[-0.04em]">{boat?.model || 'Modèle pas trouvé'} | {boat?.year || 'Année pas trouvée'}</p>
                 </div>
 
                 <div className="w-1/3 h-12 flex items-right justify-center pt-10">
