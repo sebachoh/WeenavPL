@@ -16,13 +16,13 @@ function App() {
       case "home":
         return <InitialScreen />;
       case "boatList":
-        return <BoatList />;
+        return <BoatList setActiveView={setActiveView} />;
       case "userList":
-        return <UserList />;
+        return <UserList setActiveView={setActiveView} />;
       case "boatDashboard":
-        return <BoatDashboard />;
+        return <BoatDashboard setActiveView={setActiveView} />;
       case "monitoring":
-        return <Monitoring />;
+        return <Monitoring setActiveView={setActiveView} />;
       default:
         return <InitialScreen />;
     }

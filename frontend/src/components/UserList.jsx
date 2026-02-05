@@ -1,4 +1,4 @@
-export default function UserList() {
+export default function UserList({ setActiveView }) {
     return (
         <div className="flex-1 h-[calc(100vh-2rem)] m-4 bg-white flex flex-col items-center justify-center p-6 rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-100 gap-4">
             <div className="w-full h-32 bg-slate-100 rounded-2xl flex">
@@ -36,7 +36,7 @@ export default function UserList() {
                             <td className="py-4 px-4 border-b-2 border-slate-200">alice@example.com</td>
                             <td className="py-4 px-4 border-b-2 border-slate-200">06 12 34 56 xx</td>
                             <td className="py-4 px-4 text-center border-b-2 border-slate-200">
-                                <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-transform active:scale-95 shadow-md">
+                                <button onClick={() => setActiveView("boatList")} className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-transform active:scale-95 shadow-md">
                                     Bateaux
                                 </button>
                             </td>
@@ -47,7 +47,7 @@ export default function UserList() {
                             <td className="py-4 px-4 border-b-2 border-slate-200">bob@example.com</td>
                             <td className="py-4 px-4 border-b-2 border-slate-200">06 12 34 56 xx</td>
                             <td className="py-4 px-4 text-center border-b-2 border-slate-200">
-                                <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-transform active:scale-95 shadow-md">
+                                <button onClick={() => setActiveView("boatList")} className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-transform active:scale-95 shadow-md">
                                     Bateaux
                                 </button>
                             </td>

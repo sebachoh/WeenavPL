@@ -1,6 +1,6 @@
 import BoatChart from './graphTest.jsx';
 
-export default function BoatDashboard() {
+export default function BoatDashboard({ setActiveView }) {
     return (
         <div className="flex-1 h-[calc(100vh-2rem)] m-4 bg-white flex flex-col items-center justify-center p-6 rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-100 gap-4">
             <div className="w-full h-24 bg-slate-100 rounded-2xl flex">
@@ -14,6 +14,17 @@ export default function BoatDashboard() {
                 <div className="flex flex-col items-center justify-center">
                     <h1 className="text-3xl font-bold text-slate-800 tracking-[-0.04em]">Black Pearl</h1>
                     <p className="text-slate-500 text-sm tracking-[-0.04em]">Kronos | 1992</p>
+                </div>
+                <div className="w-1/3 h-12 flex items-right justify-center pt-10">
+                    <button
+                        onClick={() => setActiveView("boatList")}
+                        className="flex items-center gap-2 text-slate-500 hover:text-black transition-colors font-medium text-sm group"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4 transition-transform group-hover:-translate-x-1">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                        </svg>
+                        Retour au tableau
+                    </button>
                 </div>
             </div>
 
@@ -39,19 +50,19 @@ export default function BoatDashboard() {
                                 {/* Fila: Email */}
                                 <tr className="border-b border-slate-300">
                                     <td className="py-2 px-6 text-xm font-semibold text-black text-center tracking-[-0.02em]">Courriel:</td>
-                                    <td className="py-2 px-2 text-xm text-black text-left break-all tracking-[-0.02em]">Miau@gmail.com</td>
+                                    <td className="py-2 px-2 text-xm text-black text-left break-all tracking-[-0.02em]">sebastian.ruiz@weenav.com</td>
                                 </tr>
 
                                 {/* Fila: Address */}
                                 <tr className="border-b border-slate-300">
                                     <td className="py-2 px-6 text-xm font-semibold text-black text-center tracking-[-0.02em]">Address:</td>
-                                    <td className="py-2 px-2 text-xm text-black text-left break-words tracking-[-0.02em]">123 Rue de la Marine, Marseille</td>
+                                    <td className="py-2 px-2 text-xm text-black text-left break-words tracking-[-0.02em]">4 Avenue de l’Europe, 59223 RONCQ - FRANCE</td>
                                 </tr>
 
                                 {/* Fila: Portable */}
                                 <tr className="border-b border-slate-300">
                                     <td className="py-2 px-6 text-xm font-semibold text-black text-center tracking-[-0.02em]">Portable:</td>
-                                    <td className="py-2 px-2 text-xm text-black text-left tracking-[-0.02em]">+33 6 12 34 56 78</td>
+                                    <td className="py-2 px-2 text-xm text-black text-left tracking-[-0.02em]">+33 7 53 01 28 86</td>
                                 </tr>
 
                                 {/* Fila: Combien de bateaux */}
@@ -196,7 +207,7 @@ export default function BoatDashboard() {
                         <BoatChart />
                     </div>
                     <div className="w-full pt-4 flex justify-center">
-                        <button className="bg-black hover:bg-gray-800 text-white p-1.5 rounded-xl transition-all active:scale-90 shadow-sm flex items-center justify-center">Visualiser tous les données</button>
+                        <button onClick={() => setActiveView("monitoring")} className="bg-black hover:bg-gray-800 text-white p-1.5 rounded-xl transition-all active:scale-90 shadow-sm flex items-center justify-center">Visualiser tous les données</button>
                     </div>
                 </div>
             </div>

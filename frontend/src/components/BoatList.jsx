@@ -1,4 +1,4 @@
-export default function BoatList() {
+export default function BoatList({ setActiveView }) {
     return (
         <div className="flex-1 h-[calc(100vh-2rem)] m-4 bg-white flex flex-col items-center justify-center p-6 rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-100 gap-4">
             <div className="w-full h-32 bg-slate-100 rounded-2xl flex">
@@ -40,7 +40,7 @@ export default function BoatList() {
                             </td>
                             <td className="py-4 px-4 border-b-2 border-slate-200">👤 19</td>
                             <td className="py-4 px-4 text-center border-b-2 border-slate-200">
-                                <button className="bg-black hover:bg-black/80 text-white px-4 py-2 rounded-xl text-sm font-medium transition-transform active:scale-95 shadow-md">
+                                <button onClick={() => setActiveView("boatDashboard")} className="bg-black hover:bg-black/80 text-white px-4 py-2 rounded-xl text-sm font-medium transition-transform active:scale-95 shadow-md">
                                     Voir Détails
                                 </button>
                             </td>
@@ -55,7 +55,7 @@ export default function BoatList() {
                             </td>
                             <td className="py-4 px-4 border-b-2 border-slate-200">👤 19</td>
                             <td className="py-4 px-4 text-center border-b-2 border-slate-200">
-                                <button className="bg-black hover:bg-black/80 text-white px-4 py-2 rounded-xl text-sm font-medium transition-transform active:scale-95 shadow-md">
+                                <button onClick={() => setActiveView("boatDashboard")} className="bg-black hover:bg-black/80 text-white px-4 py-2 rounded-xl text-sm font-medium transition-transform active:scale-95 shadow-md">
                                     Voir Détails
                                 </button>
                             </td>
@@ -70,7 +70,7 @@ export default function BoatList() {
                             </td>
                             <td className="py-4 px-4 border-b-2 border-slate-200">👤 20</td>
                             <td className="py-4 px-4 text-center border-b-2 border-slate-200">
-                                <button className="bg-black hover:bg-black/80 text-white px-4 py-2 rounded-xl text-sm font-medium transition-transform active:scale-95 shadow-md">
+                                <button onClick={() => setActiveView("boatDashboard")} className="bg-black hover:bg-black/80 text-white px-4 py-2 rounded-xl text-sm font-medium transition-transform active:scale-95 shadow-md">
                                     Voir Détails
                                 </button>
                             </td>
@@ -85,7 +85,7 @@ export default function BoatList() {
                             </td>
                             <td className="py-4 px-4 border-b-2 border-slate-200">👤 20</td>
                             <td className="py-4 px-4 text-center border-b-2 border-slate-200">
-                                <button className="bg-black hover:bg-black/80 text-white px-4 py-2 rounded-xl text-sm font-medium transition-transform active:scale-95 shadow-md">
+                                <button onClick={() => setActiveView("boatDashboard")} className="bg-black hover:bg-black/80 text-white px-4 py-2 rounded-xl text-sm font-medium transition-transform active:scale-95 shadow-md">
                                     Voir Détails
                                 </button>
                             </td>

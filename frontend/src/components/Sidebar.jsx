@@ -1,6 +1,6 @@
 import logo from "../assets/img/LogoEntreprise.png";
 
-export default function Sidebar() {
+export default function Sidebar({ setActiveView }) {
     return (
         <div className="w-1/4 h-[calc(100vh-2rem)] m-4 bg-black flex flex-col justify-between p-6 rounded-3xl shadow-2xl shadow-black/50 border border-white/5">
 
@@ -10,17 +10,17 @@ export default function Sidebar() {
                         <img src={logo} alt="Logo" className="w-full h-full object-contain" />
                     </div>
                     <h1 className="text-4xl font-bold text-slate-500 pt-4 text-center tracking-[-0.05em]">
-                        W <span className="text-2xl text-white tracking-[-0.05em]">Dashboard</span>
+                        W <span className="text-2xl text-white tracking-[-0.05em]"><boton onClick={() => setActiveView("home")}>Dashboard</boton></span>
                     </h1>
                     <p className="text-gray-400 text-center tracking-[-0.05em]">Système de monitorage</p>
                 </div>
 
                 <nav className="space-y-4 text-white">
                     <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Menu</p>
-                    <button className="w-full text-left p-2 rounded-2xl hover:bg-slate-800 hover:scale-105 transition-transform">
+                    <button onClick={() => setActiveView("boatList")} className="w-full text-left p-2 rounded-2xl hover:bg-slate-800 hover:scale-105 transition-transform">
                         <span className="text-sm font-medium tracking-[-0.05em]">Liste des bateaux 🛥️</span>
                     </button>
-                    <button className="w-full text-left p-2 rounded-2xl hover:bg-slate-800 hover:scale-105 transition-transform">
+                    <button onClick={() => setActiveView("userList")} className="w-full text-left p-2 rounded-2xl hover:bg-slate-800 hover:scale-105 transition-transform">
                         <span className="text-sm font-medium tracking-[-0.05em]">Liste des clients 📲</span>
                     </button>
                 </nav>
