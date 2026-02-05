@@ -4,8 +4,11 @@ import { useEffect, useState } from 'react';
 
 export default function Monitoring({ boat, setActiveView }) {
 
-    const [, setTelemetry] = useState([]);
+    const [selectedOption, setSelectedOption] = useState("Vitesse");
+    const [telemetry, setTelemetry] = useState([]);
     const [, setLoading] = useState(true);
+
+    const [history, setHistory] = useState({ values: [], labels: [] });
 
     useEffect(() => {
         let isMounted = true;
@@ -14,30 +17,53 @@ export default function Monitoring({ boat, setActiveView }) {
             if (!boat?.id) return;
 
             try {
-                setLoading(true);
-
                 const resTele = await fetch(`http://localhost:3000/telemetry/${boat.id}`);
                 const dataTele = await resTele.json();
 
-                if (isMounted) {
-                    const latest = Array.isArray(dataTele) ? dataTele[dataTele.length - 1] : dataTele;
-                    setTelemetry(latest);
+                if (isMounted && Array.isArray(dataTele) && dataTele.length > 0) {
+                    // 1. Dictionnaire pour lier tes boutons aux colonnes JSON de l'API
+                    const columnMap = {
+                        "Tension": "voltage",    // Vérifie si c'est bien 'voltage' dans ta DB
+                        "Courant": "current",    // Vérifie si c'est bien 'current'
+                        "Temperature": "temperature",   // Vérifie si c'est 'temp' ou 'temperature'
+                        "Puissance": "power_kw",
+                        "Vitesse": "speed",
+                        "Timestamp": "timestamp"
+                    };
+
+                    const activeKey = columnMap[selectedOption];
+
+                    // 2. Prendre les 10 derniers enregistrements
+                    const last10 = dataTele.slice(-10);
+
+                    // 3. Préparer les données pour la graphique
+                    setHistory({
+                        values: last10.map(item => item[activeKey]),
+                        labels: last10.map(item => {
+                            const d = new Date(item.timestamp);
+                            return `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
+                        })
+                    });
+
+                    // 4. Mettre à jour le dernier point pour les petits cadres de texte
+                    setTelemetry(last10[last10.length - 1]);
                     setLoading(false);
                 }
             } catch (error) {
-                console.error("Error en Monitoring:", error);
-                if (isMounted) setLoading(false);
+                console.error("Error monitoring:", error);
             }
         };
 
         fetchTelemetry();
 
+        fetchTelemetry();
         const interval = setInterval(fetchTelemetry, 5000);
+
         return () => {
             isMounted = false;
             clearInterval(interval);
         };
-    }, [boat?.id]);
+    }, [boat?.id, selectedOption]);
 
 
     return (
@@ -73,26 +99,22 @@ export default function Monitoring({ boat, setActiveView }) {
             <div className="w-full h-full flex gap-4">
                 {/* cuadro 1 */}
                 <div className="w-1/5 h-full bg-slate-100 rounded-2xl px-6">
-                    <div>
-                        <h1 className="text-slate-500 text-xl font-bold p-5 pt-6 text-center tracking-[-0.02em]">
-                            Options pour la visualisation
-                        </h1>
-                    </div>
-                    <div>
-                        <button className='w-full bg-gray-200 mb-2 p-2 px-6 rounded-2xl hover:bg-slate-800 hover:scale-105 hover:text-white transition-transform active:scale-95 tracking-[-0.02em]'>Tension</button>
-                    </div>
-                    <div>
-                        <button className='w-full bg-gray-200 mb-2 p-2 px-6 rounded-2xl hover:bg-slate-800 hover:scale-105 hover:text-white transition-transform active:scale-95 tracking-[-0.02em]'>Courant</button>
-                    </div>
-                    <div>
-                        <button className='w-full bg-gray-200 mb-2 p-2 px-6 rounded-2xl hover:bg-slate-800 hover:scale-105 hover:text-white transition-transform active:scale-95 tracking-[-0.02em]'>Temperature</button>
-                    </div>
-                    <div>
-                        <button className='w-full bg-gray-200 mb-2 p-2 px-6 rounded-2xl hover:bg-slate-800 hover:scale-105 hover:text-white transition-transform active:scale-95 tracking-[-0.02em]'>Puissance</button>
-                    </div>
-                    <div>
-                        <button className='w-full bg-gray-200 mb-2 p-2 px-6 rounded-2xl hover:bg-slate-800 hover:scale-105 hover:text-white transition-transform active:scale-95 tracking-[-0.02em]'>Vitesse</button>
-                    </div>
+                    <h1 className="text-slate-500 text-xl font-bold p-5 pt-6 text-center tracking-[-0.02em]">
+                        Options pour la visualisation
+                    </h1>
+                    {["Vitesse", "Courant", "Temperature", "Puissance", "Tension",].map((option) => (
+                        <button
+                            key={option}
+                            onClick={() => setSelectedOption(option)}
+                            className={`w-full p-2 px-6 rounded-2xl transition-all duration-200 tracking-[-0.02em] font-semibold mt-2 mb-2 ${selectedOption === option
+                                ? 'bg-slate-800 text-white shadow-md scale-105'
+                                : 'bg-gray-200 text-slate-500 hover:bg-slate-300'
+                                }`}
+                        >
+                            {option}
+                        </button>
+                    ))}
+
                 </div>
                 {/* cuadro 2 */}
                 <div className="w-4/5 h-full bg-slate-100 rounded-2xl">
@@ -101,11 +123,16 @@ export default function Monitoring({ boat, setActiveView }) {
                             Graphiques
                         </h1>
                         <span className="text-slate-500 text-xs font-bold p-5 pt-6 text-center tracking-[-0.02em]">
-                            Vitesse
+                            {selectedOption}
                         </span>
                     </div>
-                    <div className="w-full h-[calc(100vh-20rem)]">
-                        <BoatChart />
+                    <div className="w-full h-[calc(100vh-22rem)]">
+                        <BoatChart historyData={history} />
+                    </div>
+                    <div className="w-full bg-slate-100 rounded-2xl flex">
+                        <p className="text-slate-500 text-xs font-bold p-5 pt-6 text-center tracking-[-0.02em]">Dernière mise à jour : {telemetry?.timestamp
+                            ? new Date(telemetry.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })
+                            : '--:--:--'}</p>
                     </div>
                 </div>
             </div>

@@ -38,7 +38,11 @@ export default function BoatDashboard({ boat, setActiveView }) {
 
         fetchAllData();
 
-        return () => { isMounted = false; };
+        const interval = setInterval(() => {
+            fetchAllData();
+        }, 10000);
+
+        return () => { isMounted = false; clearInterval(interval); };
     }, [boat.id, boat.user_id]);
 
     return (
@@ -192,7 +196,7 @@ export default function BoatDashboard({ boat, setActiveView }) {
                             Annee de construction
                         </h1>
                         <p className="text-black font-bold text-5xl text-center tracking-[-0.04em]">
-                            1992
+                            {boat.year}
                         </p>
                     </div>
                     <div className="w-full h-1/2 bg-slate-100 rounded-2xl hover:scale-105 transition-transform active:scale-95">
@@ -200,7 +204,7 @@ export default function BoatDashboard({ boat, setActiveView }) {
                             Client depuis
                         </h1>
                         <p className="text-black font-bold text-5xl text-center tracking-[-0.04em]">
-                            2022
+                            2026
                         </p>
                     </div>
                 </div>
@@ -242,13 +246,9 @@ export default function BoatDashboard({ boat, setActiveView }) {
                     </div>
 
                 </div>
-                <div className="w-1/2 h-full bg-slate-100 rounded-2xl flex flex-col p-6">
-                    <h2 className="text-slate-500 text-xl font-bold mb-4 text-center tracking-[-0.02em]">Vitesse du moteur (dernière 24 heures)</h2>
-                    <div className="flex-1 w-full min-h-0">
-                        <BoatChart />
-                    </div>
-                    <div className="w-full pt-4 flex justify-center">
-                        <button onClick={() => setActiveView("monitoring")} className="bg-black hover:bg-gray-800 text-white p-1.5 rounded-xl transition-all active:scale-90 shadow-sm flex items-center justify-center">Visualiser tous les données</button>
+                <div className="w-1/2 h-full rounded-2xl flex flex-col " style={{ backgroundImage: "url('https://cdn.prod.website-files.com/66961d72b4624f896049e9db/66b1e9e417367a94f27303f7_Imageprototype.2022.webp')", backgroundSize: "cover", backgroundPosition: "center" }}>
+                    <div className="w-full h-full flex justify-center items-center">
+                        <button onClick={() => setActiveView("monitoring")} className="bg-black/50 backdrop-blur-sm h-1/5 w-1/2 text-white text-xm p-1.5 rounded-xl transition-all active:scale-90 shadow-sm flex items-center justify-center hover:scale-105 transition-transform active:scale-95 tracking-[-0.02em]">Visualiser tous les données</button>
                     </div>
                 </div>
             </div>
