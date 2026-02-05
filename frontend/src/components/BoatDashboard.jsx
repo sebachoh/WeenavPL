@@ -1,3 +1,5 @@
+import BoatChart from './graphTest.jsx';
+
 export default function BoatDashboard() {
     return (
         <div className="flex-1 h-[calc(100vh-2rem)] m-4 bg-white flex flex-col items-center justify-center p-6 rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-100 gap-4">
@@ -188,8 +190,14 @@ export default function BoatDashboard() {
                     </div>
 
                 </div>
-                <div className="w-1/2 h-full bg-slate-100 rounded-2xl">
-
+                <div className="w-1/2 h-full bg-slate-100 rounded-2xl flex flex-col p-6">
+                    <h2 className="text-slate-500 text-xl font-bold mb-4 text-center tracking-[-0.02em]">Vitesse du moteur (dernière 24 heures)</h2>
+                    <div className="flex-1 w-full min-h-0">
+                        <BoatChart />
+                    </div>
+                    <div className="w-full pt-4 flex justify-center">
+                        <button className="bg-black hover:bg-gray-800 text-white p-1.5 rounded-xl transition-all active:scale-90 shadow-sm flex items-center justify-center">Visualiser tous les données</button>
+                    </div>
                 </div>
             </div>
         </div>

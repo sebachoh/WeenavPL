@@ -34,13 +34,13 @@ export default function BoatList() {
                             <td className="py-4 px-4 font-mono text-sm border-b-2 border-slate-200">8</td>
                             <td className="py-4 px-4 font-bold border-b-2 border-slate-200">Queen Mary</td>
                             <td className="py-4 px-4 border-b-2 border-slate-200">
-                                <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold">
+                                <span className="bg-black text-white px-3 py-1 rounded-full text-xs font-semibold">
                                     KRONOS
                                 </span>
                             </td>
                             <td className="py-4 px-4 border-b-2 border-slate-200">👤 19</td>
                             <td className="py-4 px-4 text-center border-b-2 border-slate-200">
-                                <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-transform active:scale-95 shadow-md">
+                                <button className="bg-black hover:bg-black/80 text-white px-4 py-2 rounded-xl text-sm font-medium transition-transform active:scale-95 shadow-md">
                                     Voir Détails
                                 </button>
                             </td>
@@ -49,13 +49,13 @@ export default function BoatList() {
                             <td className="py-4 px-4 font-mono text-sm border-b-2 border-slate-200">9</td>
                             <td className="py-4 px-4 font-bold border-b-2 border-slate-200">Black Pearl</td>
                             <td className="py-4 px-4 border-b-2 border-slate-200">
-                                <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold">
+                                <span className="bg-black text-white px-3 py-1 rounded-full text-xs font-semibold">
                                     ARION
                                 </span>
                             </td>
                             <td className="py-4 px-4 border-b-2 border-slate-200">👤 19</td>
                             <td className="py-4 px-4 text-center border-b-2 border-slate-200">
-                                <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-transform active:scale-95 shadow-md">
+                                <button className="bg-black hover:bg-black/80 text-white px-4 py-2 rounded-xl text-sm font-medium transition-transform active:scale-95 shadow-md">
                                     Voir Détails
                                 </button>
                             </td>
@@ -64,13 +64,13 @@ export default function BoatList() {
                             <td className="py-4 px-4 font-mono text-sm border-b-2 border-slate-200">10</td>
                             <td className="py-4 px-4 font-bold border-b-2 border-slate-200">Titanic</td>
                             <td className="py-4 px-4 border-b-2 border-slate-200">
-                                <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold">
+                                <span className="bg-black text-white px-3 py-1 rounded-full text-xs font-semibold">
                                     KRONOS
                                 </span>
                             </td>
                             <td className="py-4 px-4 border-b-2 border-slate-200">👤 20</td>
                             <td className="py-4 px-4 text-center border-b-2 border-slate-200">
-                                <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-transform active:scale-95 shadow-md">
+                                <button className="bg-black hover:bg-black/80 text-white px-4 py-2 rounded-xl text-sm font-medium transition-transform active:scale-95 shadow-md">
                                     Voir Détails
                                 </button>
                             </td>
@@ -79,13 +79,13 @@ export default function BoatList() {
                             <td className="py-4 px-4 font-mono text-sm border-b-2 border-slate-200">11</td>
                             <td className="py-4 px-4 font-bold border-b-2 border-slate-200">Discovery</td>
                             <td className="py-4 px-4 border-b-2 border-slate-200">
-                                <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold">
+                                <span className="bg-black text-white px-3 py-1 rounded-full text-xs font-semibold">
                                     ARION
                                 </span>
                             </td>
                             <td className="py-4 px-4 border-b-2 border-slate-200">👤 20</td>
                             <td className="py-4 px-4 text-center border-b-2 border-slate-200">
-                                <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-transform active:scale-95 shadow-md">
+                                <button className="bg-black hover:bg-black/80 text-white px-4 py-2 rounded-xl text-sm font-medium transition-transform active:scale-95 shadow-md">
                                     Voir Détails
                                 </button>
                             </td>
