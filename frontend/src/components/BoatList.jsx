@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function BoatList({ setActiveView }) {
+export default function BoatList({ setActiveView, setSelectedBoat }) {
 
     // la partie pour definir les bateaux de la base de données
     const [boats, setBoats] = useState([]);
@@ -72,7 +72,7 @@ export default function BoatList({ setActiveView }) {
                                     <td className="py-4 px-4 border-b border-slate-200 text-slate-600 font-medium">👤 {boat.user_id}</td>
                                     <td className="py-4 px-4 text-center border-b border-slate-200">
                                         <button
-                                            onClick={() => setActiveView("boatDashboard")}
+                                            onClick={() => { setSelectedBoat(boat); setActiveView("boatDashboard"); }}
                                             className="bg-black hover:bg-slate-800 text-white px-5 py-2 rounded-xl text-sm font-medium transition-all active:scale-95 shadow-md"
                                         >
                                             Voir Détails

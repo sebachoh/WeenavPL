@@ -1,6 +1,33 @@
 import BoatChart from './graphTest.jsx';
+import { useEffect, useState } from 'react';
 
-export default function BoatDashboard({ setActiveView }) {
+export default function BoatDashboard({ boat, setActiveView }) {
+
+    const [telemetry, setTelemetry] = useState([]);
+    const [, setLoading] = useState(true);
+    useEffect(() => {
+        const fetchTelemetry = async () => {
+            try {
+                const response = await fetch(`http://localhost:3000/telemetry/${boat.id}`);
+                const data = await response.json();
+
+                if (Array.isArray(data) && data.length > 0) {
+                    setTelemetry(data[data.length - 1]);
+                } else {
+                    setTelemetry(data);
+                }
+                setLoading(false);
+            } catch (error) {
+                console.error("Error fetching telemetry:", error);
+                setLoading(false);
+            }
+        };
+
+        if (boat?.id) {
+            fetchTelemetry();
+        }
+    }, [boat.id]);
+
     return (
         <div className="flex-1 h-[calc(100vh-2rem)] m-4 bg-white flex flex-col items-center justify-center p-6 rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-100 gap-4">
             <div className="w-full h-24 bg-slate-100 rounded-2xl flex">
@@ -12,8 +39,8 @@ export default function BoatDashboard({ setActiveView }) {
                     />
                 </div>
                 <div className="flex flex-col items-center justify-center">
-                    <h1 className="text-3xl font-bold text-slate-800 tracking-[-0.04em]">Black Pearl</h1>
-                    <p className="text-slate-500 text-sm tracking-[-0.04em]">Kronos | 1992</p>
+                    <h1 className="text-3xl font-bold text-slate-800 tracking-[-0.04em]">{boat.name}</h1>
+                    <p className="text-slate-500 text-sm tracking-[-0.04em]">{boat.model} | {boat.year}</p>
                 </div>
                 <div className="w-1/3 h-12 flex items-right justify-center pt-10">
                     <button
@@ -172,7 +199,7 @@ export default function BoatDashboard({ setActiveView }) {
                             Température
                         </h1>
                         <p className="text-black font-bold text-5xl text-center tracking-[-0.04em]">
-                            25°C
+                            {telemetry.temperature}°C
                         </p>
                     </div>
                     <div className="w-full h-full bg-slate-100 rounded-2xl hover:scale-105 transition-transform active:scale-95">
@@ -180,7 +207,7 @@ export default function BoatDashboard({ setActiveView }) {
                             Tension
                         </h1>
                         <p className="text-black font-bold text-5xl text-center tracking-[-0.04em]">
-                            12V
+                            {telemetry.voltage}V
                         </p>
                     </div>
                     <div className="w-full h-full bg-slate-100 rounded-2xl hover:scale-105 transition-transform active:scale-95">
@@ -188,7 +215,7 @@ export default function BoatDashboard({ setActiveView }) {
                             SOC
                         </h1>
                         <p className="text-black font-bold text-5xl text-center tracking-[-0.04em]">
-                            98,5%
+                            {telemetry.soc}%
                         </p>
                     </div>
                     <div className="w-full h-full bg-slate-100 rounded-2xl hover:scale-105 transition-transform active:scale-95">
@@ -196,7 +223,7 @@ export default function BoatDashboard({ setActiveView }) {
                             Vitesse
                         </h1>
                         <p className="text-black font-bold text-5xl text-center tracking-[-0.04em]">
-                            5,2 nd
+                            {telemetry.speed} nd
                         </p>
                     </div>
 

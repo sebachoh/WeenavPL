@@ -10,17 +10,19 @@ import InitialScreen from "./components/InitialScreen";
 function App() {
 
   const [activeView, setActiveView] = useState("home");
+  const [selectedBoat, setSelectedBoat] = useState(null);
 
   const renderView = () => {
     switch (activeView) {
       case "home":
         return <InitialScreen />;
       case "boatList":
-        return <BoatList setActiveView={setActiveView} />;
+        return <BoatList setActiveView={setActiveView}
+          setSelectedBoat={setSelectedBoat} />;
       case "userList":
         return <UserList setActiveView={setActiveView} />;
       case "boatDashboard":
-        return <BoatDashboard setActiveView={setActiveView} />;
+        return <BoatDashboard setActiveView={setActiveView} boat={selectedBoat} />;
       case "monitoring":
         return <Monitoring setActiveView={setActiveView} />;
       default:
