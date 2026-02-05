@@ -72,7 +72,7 @@ export const getBoatById = async (req, res) => {
 export const createBoat = async (req, res) => {
     try {
         const data = req.body;
-        const { rows } = await pool.query("INSERT INTO boats (user_id, name, model, battery_capacity_kwh) VALUES ($1, $2, $3, $4) RETURNING *", [data.user_id, data.name, data.model, data.battery_capacity_kwh]);
+        const { rows } = await pool.query("INSERT INTO boats (user_id, name, model, battery_capacity_kwh, year) VALUES ($1, $2, $3, $4, $5) RETURNING *", [data.user_id, data.name, data.model, data.battery_capacity_kwh, data.year]);
 
         return res.json(rows[0]);
     } catch (error) {
@@ -86,7 +86,7 @@ export const createBoat = async (req, res) => {
 
 export const updateBoat = async (req, res) => {
     const { id } = req.params;
-    const { rows } = await pool.query("UPDATE boats SET name = $2, model = $3, battery_capacity_kwh = $4 WHERE id = $1 RETURNING *", [id, req.body.name, req.body.model, req.body.battery_capacity_kwh]);
+    const { rows } = await pool.query("UPDATE boats SET name = $2, model = $3, battery_capacity_kwh = $4, year = $5 WHERE id = $1 RETURNING *", [id, req.body.name, req.body.model, req.body.battery_capacity_kwh, req.body.year]);
 
     if (rows.length === 0) {
         return res.status(404).json({ message: "Bateau non trouvé" });
