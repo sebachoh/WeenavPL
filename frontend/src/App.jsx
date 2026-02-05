@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import Sidebar from "./components/Sidebar";
 import BoatList from "./components/BoatList";
 import UserList from "./components/UserList";
@@ -7,14 +9,34 @@ import InitialScreen from "./components/InitialScreen";
 
 function App() {
 
+  const [activeView, setActiveView] = useState("home");
+
+  const renderView = () => {
+    switch (activeView) {
+      case "home":
+        return <InitialScreen />;
+      case "boatList":
+        return <BoatList />;
+      case "userList":
+        return <UserList />;
+      case "boatDashboard":
+        return <BoatDashboard />;
+      case "monitoring":
+        return <Monitoring />;
+      default:
+        return <InitialScreen />;
+    }
+  };
+
   return (
     <div className="flex h-screen">
-      <Sidebar />
-      <InitialScreen />
-      {/* <BoatList /> */}
-      {/* <UserList /> */}
-      {/* <BoatDashboard /> */}
-      {/* <Monitoring /> */}
+      {activeView !== "monitoring" && (
+        <Sidebar setActiveView={setActiveView} />
+      )}
+
+      <div className="flex-1">
+        {renderView()}
+      </div>
     </div>
   );
 }
