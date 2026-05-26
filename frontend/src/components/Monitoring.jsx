@@ -1,5 +1,6 @@
 import BoatChart from './graphTest.jsx';
 import { useEffect, useState } from 'react';
+import { API_URL } from '../config';
 
 
 export default function Monitoring({ boat, setActiveView }) {
@@ -17,7 +18,7 @@ export default function Monitoring({ boat, setActiveView }) {
             if (!boat?.id) return;
 
             try {
-                const resTele = await fetch(`http://localhost:3000/telemetry/${boat.id}`);
+                const resTele = await fetch(`${API_URL}/telemetry/${boat.id}`);
                 const dataTele = await resTele.json();
 
                 if (isMounted && Array.isArray(dataTele) && dataTele.length > 0) {

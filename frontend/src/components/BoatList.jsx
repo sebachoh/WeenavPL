@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_URL } from "../config";
 
 export default function BoatList({ setActiveView, setSelectedBoat }) {
 
@@ -10,7 +11,7 @@ export default function BoatList({ setActiveView, setSelectedBoat }) {
     useEffect(() => {
         const fetchBoats = async () => {
             try {
-                const response = await fetch("http://localhost:3000/boats");
+                const response = await fetch(`${API_URL}/boats`);
                 const data = await response.json();
                 setBoats(data);
                 setLoading(false);

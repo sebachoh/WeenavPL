@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_URL } from "../config";
 
 export default function UserList({ setActiveView }) {
 
@@ -8,7 +9,7 @@ export default function UserList({ setActiveView }) {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch("http://localhost:3000/users");
+                const response = await fetch(`${API_URL}/users`);
                 const data = await response.json();
                 setUsers(data);
                 setLoading(false);

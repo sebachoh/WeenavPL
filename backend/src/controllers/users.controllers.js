@@ -99,7 +99,6 @@ export const deleteBoat = async (req, res) => {
     const { rowCount } = await pool.query("DELETE FROM boats WHERE id = $1 RETURNING *", [id]);
 
     if (rowCount === 0) {
-        ß
         return res.status(404).json({ message: "Bateau non trouvé" });
     }
     return res.status(204).json({ message: "Bateau supprimé" });
